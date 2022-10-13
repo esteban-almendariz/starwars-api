@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react'
 import './App.css';
 import Movie from './Movie';
-import AddMovie from './AddMovie';
+
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -13,15 +13,13 @@ function App() {
     fetchMoviesHandler()
   }, [])
 
-  const addMovieHandler = (movie) => {
-    console.log(movie)
-  }
+
   async function fetchMoviesHandler() {
     setIsLoading(true)
     setError(null)
 
     try {
-      const response = await fetch('https://swapi.dev/api/films/')
+      const response = await fetch('https://swapi.dev/api/films')
       if (!response.ok) {
         throw new Error('Something went wrong!')
       }
@@ -52,8 +50,8 @@ function App() {
 
   return (
     <div className="App">
-      <AddMovie onAddMovie={addMovieHandler} />
-      <button onClick={fetchMoviesHandler}>Fetch Movies</button>
+
+      <button className='movie-btn' onClick={fetchMoviesHandler}>Fetch Movies</button>
       <div>
         {!isLoading && <Movie movies={movies} />}
         {!isLoading && movies.length === 0 && !error && <p>No Movies Available</p>}
